@@ -9,7 +9,6 @@ export interface UsersInterface extends Document {
   role: Role;
   active: boolean;
   wishlist:ProductsInterface[];
-  address:string[];
   passwordChangedAt: Date | number;
   resetCode: string | undefined;
   resetCodeExpireTime: Date | number | undefined;

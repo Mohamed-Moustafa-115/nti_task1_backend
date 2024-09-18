@@ -8,6 +8,8 @@ reviewsRoute.route('/')
   .get(filterReviews, getReviews)
   .post(protectRoutes, checkActive, allowedTo('user'), setProductAndUserId, createReviewValidator, createReview);
 
+reviewsRoute.route('/myReviews').get(protectRoutes, checkActive, allowedTo('user'), filterReviews, getReviews);
+
 reviewsRoute.route('/:id')
   .get(getReviewValidator, getReview)
   .put(protectRoutes, checkActive, allowedTo('user'), updateReviewValidator, updateReview)

@@ -11,7 +11,7 @@ export const createProductValidator: RequestHandler[] = [
     .isLength({ min: 2, max: 50 }).withMessage('Name length must be between 2 and 50'),
   check('description')
     .notEmpty().withMessage('description required')
-    .isLength({ min: 10, max: 500 }),
+    .isLength({ min: 10, max: 1000 }),
   check('price')
     .notEmpty().withMessage('Product Price required')
     .isNumeric().withMessage('price must be number').toFloat()
@@ -69,7 +69,7 @@ export const updateProductValidator: RequestHandler[] = [
     .isLength({ min: 2, max: 50 }).withMessage('Name length must be between 2 and 50'),
   check('description')
     .optional()
-    .isLength({ min: 10, max: 500 }),
+    .isLength({ min: 10, max: 1000 }),
   check('price')
     .optional()
     .isNumeric().withMessage('price must be number').toFloat()

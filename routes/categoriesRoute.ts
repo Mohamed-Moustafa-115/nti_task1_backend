@@ -4,16 +4,17 @@ import { createCategoryValidator, deleteCategoryValidator, getCategoryValidator,
 import subcategoriesRoute from "./subcategoriesRoute";
 import { allowedTo, checkActive, protectRoutes } from "../controllers/authenticationController";
 
-const categoryRoute: Router = Router();
-categoryRoute.use('/:categoryId/subcategories', categoryRoute);
+const categoriesRoute: Router = Router();
 
-categoryRoute.route('/')
+categoriesRoute.use('/:categoryId/subcategories', subcategoriesRoute);
+
+categoriesRoute.route('/')
   .get(getCategories)
-  .post(protectRoutes, checkActive, allowedTo('manager', 'admin'), createCategoryValidator, createCategory);
+  .post(protectRoutes, checkActive, allowedTo('manager', 'admin'), uploadCategoryImage, resizeCategoryImage, createCategoryValidator, createCategory);
 
-categoryRoute.route('/:id')
-  .get(getCategoryValidator,getCategory)
-  .put(protectRoutes, checkActive, allowedTo('manager', 'admin'), updateCategoryValidator, updateCategory)
+categoriesRoute.route('/:id')
+  .get(getCategoryValidator, getCategory)
+  .put(protectRoutes, checkActive, allowedTo('manager', 'admin'), uploadCategoryImage, resizeCategoryImage, updateCategoryValidator, updateCategory)
   .delete(protectRoutes, checkActive, allowedTo('manager', 'admin'), deleteCategoryValidator, deleteCategory);
 
-export default categoryRoute;
+export default categoriesRoute;

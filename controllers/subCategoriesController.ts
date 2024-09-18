@@ -4,11 +4,11 @@ import subCategoriesModel from "../models/subCategoriesModel";
 import { SubCategoriesInterface } from "../interfaces/subCategoriesInterface";
 import { createOne, deleteOne, getAll, getOne, updateOne } from "./refactorHandler";
 import { NextFunction, Request, Response } from "express";
-import { FilterDataInterface } from "../interfaces/filterDataInterface";
+import { filterDataInterface } from "../interfaces/filterDataInterface";
 import { uploadSingleImage } from "../middleware/uploadImagesMiddleware";
 
 export const filterData = (req: Request, res: Response, next: NextFunction) => {
-  let filterData: FilterDataInterface = {};
+  let filterData: filterDataInterface = {};
   if (req.params.categoryId) { filterData.category = req.params.categoryId };
   req.filterData = filterData;
   next();

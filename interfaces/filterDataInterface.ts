@@ -1,4 +1,4 @@
-export interface FilterDataInterface {
+export interface filterDataInterface {
   category?: any;
   product?: any;
   user?: any;

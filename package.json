@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "start:dev": "nodemon app.ts",
-    "start:prod": "NODE_ENV=product node ./dist/app.js",
+    "start:prod": "NODE_ENV=product BASE_URL=https://api.nti.giize.com node ./dist/app.js",
     "build": "tsc"
   },
   "keywords": [],

@@ -18,7 +18,6 @@ const sendMail = async (options: EmailOptions) => {
     subject: options.subject,
     text: options.message,
     html: `<div style="background-color:#F6F5F5;padding:2%;margin:2%"><h1>${options.subject}</h1><p>${options.message}</p></div>`,
-  
   };
   await transporter.sendMail(emailOptions)
 };

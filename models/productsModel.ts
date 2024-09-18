@@ -3,7 +3,7 @@ import { ProductsInterface } from "../interfaces/productsInterface";
 
 const productsSchema: Schema = new Schema<ProductsInterface>({
   name: { type: String, required: true, trim: true },
-  description: { type: String, required: true, trim: true, minlength: 10, maxlength: 500 },
+  description: { type: String, required: true, trim: true, minlength: 10, maxlength: 1000 },
   price: { type: Number, required: true, min: 1, max: 1000000 },
   priceAfterDiscount: { type: Number, min: 1, max: 1000000 },
   quantity: { type: Number, default: 0, min: 0 },
@@ -17,6 +17,7 @@ const productsSchema: Schema = new Schema<ProductsInterface>({
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 productsSchema.virtual('reviews', { ref: 'reviews', foreignField: 'product', localField: '_id' })
+
 
 productsSchema.pre<ProductsInterface>(/^find/, function (next) {
   this.populate({ path: 'category', select: 'name' })

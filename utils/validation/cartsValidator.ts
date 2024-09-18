@@ -2,32 +2,28 @@ import { RequestHandler } from "express";
 import { check } from "express-validator";
 import validatorMiddleware from "../../middleware/validatorMiddleware";
 
-const isValidMongoId = (field: string) => 
-  check(field)
-    .notEmpty().withMessage(`${field.charAt(0).toUpperCase() + field.slice(1)} is required`)
-    .isMongoId().withMessage('Invalid MongoDB ID');
-
 export const addProductToCartValidator: RequestHandler[] = [
-  isValidMongoId('product'),
-  validatorMiddleware,
-];
+  check('product')
+    .notEmpty().withMessage('Product required')
+    .isMongoId().withMessage('invalid mongo id'),
+  validatorMiddleware
+]
 
 export const removeProductFromCartValidator: RequestHandler[] = [
-  isValidMongoId('itemId'),
-  validatorMiddleware,
-];
+  check('itemId').isMongoId().withMessage('invalid mongo id'),
+  validatorMiddleware
+]
 
 export const updateProductQuantityValidator: RequestHandler[] = [
-  isValidMongoId('itemId'),
+  check('itemId').isMongoId().withMessage('invalid mongo id'),
   check('quantity')
-    .notEmpty().withMessage('Quantity is required')
-    .isNumeric().withMessage('Quantity must be a number')
-    .toInt()
+    .notEmpty().withMessage('Quantity required')
+    .isNumeric().withMessage('quantity must be number').toInt()
     .custom((val: number) => {
       if (val <= 0) {
-        throw new Error('Invalid quantity');
+        throw new Error('invalid quantity')
       }
       return true;
     }),
-  validatorMiddleware,
-];
+  validatorMiddleware
+]

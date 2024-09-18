@@ -30,5 +30,4 @@ const mountRoutes = (app: Application): void => {
   app.use(globalErrors);
 }
 
-
 export default mountRoutes;

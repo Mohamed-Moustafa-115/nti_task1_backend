@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { OrdersInterface } from "../interfaces/ordersInterface";
+import { ordersInterface } from "../interfaces/ordersInterface";
 
-const ordersSchema: Schema = new Schema<OrdersInterface>({
+const ordersSchema: Schema = new Schema<ordersInterface>({
   cartItems: [{
     product: { type: Schema.Types.ObjectId, ref: 'products' },
     quantity: { type: Number, default: 1 },
@@ -18,10 +18,10 @@ const ordersSchema: Schema = new Schema<OrdersInterface>({
   user: { type: Schema.Types.ObjectId, ref: 'users' }
 }, { timestamps: true });
 
-ordersSchema.pre<OrdersInterface>(/^find/, function (next) {
+ordersSchema.pre<ordersInterface>(/^find/, function (next) {
   this.populate({ path: 'cartItems.product', select: 'name cover' })
   this.populate({ path: 'user', select: 'name image email' })
   next()
 })
 
-export default model<OrdersInterface>('order', ordersSchema)
+export default model<ordersInterface>('orders', ordersSchema)

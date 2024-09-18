@@ -20,7 +20,6 @@ class Features {
   sort() {
     if (this.queryString.sort) {
       const sortBy: string = this.queryString.sort.split(',').join(' ')
-    
       this.mongooseQuery = this.mongooseQuery.sort(sortBy);
     } else {
       this.mongooseQuery = this.mongooseQuery.sort('-createdAt')

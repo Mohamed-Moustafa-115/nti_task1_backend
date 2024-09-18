@@ -9,19 +9,18 @@ import { uploadMultiImages } from "../middleware/uploadImagesMiddleware";
 export const uploadProductImages = uploadMultiImages([
   { name: 'cover', maxCount: 1 },
   { name: 'images', maxCount: 5 }
-]);
+])
 
-export const resizeImages = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const resizeImages = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   if (req.files) {
     if (req.files.cover) {
-      const coverName: string = `Product-${Date.now()}-cover.png`;
+      const coverName: string = `Product-${Date.now()}-cover.png`
       await sharp(req.files.cover[0].buffer)
         .toFormat('png')
         .png({ quality: 95 })
-        .toFile(`uploads/products/${coverName}`);
+        .toFile(`uploads/products/${coverName}`)
       req.body.cover = coverName;
     }
-
     if (req.files.images) {
       req.body.images = [];
       await Promise.all(req.files.images.map(async (img: any, index: number) => {
@@ -29,16 +28,16 @@ export const resizeImages = asyncHandler(async (req: Request, res: Response, nex
         await sharp(img.buffer)
           .toFormat('png')
           .png({ quality: 95 })
-          .toFile(`uploads/products/${imageName}`);
-        req.body.images.push(imageName);
-      }));
+          .toFile(`uploads/products/${imageName}`)
+        req.body.images.push(imageName)
+      }))
     }
   }
-  next();
-});
+  next()
+})
 
-export const createProduct = createOne<ProductsInterface>(productsModel);
-export const getProducts = getAll<ProductsInterface>(productsModel, 'products');
-export const getProduct = getOne<ProductsInterface>(productsModel, 'reviews');
-export const updateProduct = updateOne<ProductsInterface>(productsModel);
-export const deleteProduct = deleteOne<ProductsInterface>(productsModel);
+export const createProduct = createOne<ProductsInterface>(productsModel)
+export const getProducts = getAll<ProductsInterface>(productsModel, 'products')
+export const getProduct = getOne<ProductsInterface>(productsModel, 'reviews')
+export const updateProduct = updateOne<ProductsInterface>(productsModel)
+export const deleteProduct = deleteOne<ProductsInterface>(productsModel)

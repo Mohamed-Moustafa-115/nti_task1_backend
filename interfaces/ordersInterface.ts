@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 import { CartProducts } from "./cartsInterface";
 import { UsersInterface } from "./usersInterface";
 
-export interface OrdersInterface extends Document {
+export interface ordersInterface extends Document {
   cartItems: CartProducts;
   totalPrice: number;
   paymentMethod: Payment;

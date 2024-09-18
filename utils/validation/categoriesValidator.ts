@@ -1,13 +1,19 @@
 import { RequestHandler } from "express";
 import { check } from "express-validator";
 import validatorMiddleware from "../../middleware/validatorMiddleware";
+import categoriesModel from "../../models/categoriesModel";
 import subCategoriesModel from "../../models/subCategoriesModel";
 import { SubCategoriesInterface } from "../../interfaces/subCategoriesInterface";
 
 export const createCategoryValidator: RequestHandler[] = [
   check('name')
     .notEmpty().withMessage('Category Name is Required')
-    .isLength({ min: 2, max: 50 }).withMessage('Name length must be between 2 and 50'),
+    .isLength({ min: 2, max: 50 }).withMessage('Name length must be between 2 and 50')
+    .custom(async (val: string) => {
+      const category = await categoriesModel.findOne({ name: val });
+      if (category) { throw new Error('category is already exist') };
+      return true;
+    }),
   validatorMiddleware
 ]
 

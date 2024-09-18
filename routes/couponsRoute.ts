@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { allowedTo, checkActive, protectRoutes } from "../controllers/authenticationController";
-import { createCoupon, deleteCoupon, getCoupon, getCoupons, updateCoupon } from "../controllers/couponsControlller";
+import { createCoupon, deleteCoupon, getCoupon, getCoupons, updateCoupon } from "../controllers/couponsController";
 import { createCouponValidator, deleteCouponValidator, getCouponValidator, updateCouponValidator } from "../utils/validation/couponsValidator";
 
 const couponsRoute: Router = Router();
